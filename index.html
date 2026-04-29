@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Liquidador">
+<title>Liquidador Empleada Doméstica 2026</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface2: #eeede8;
+  --border: rgba(0,0,0,0.10);
+  --border2: rgba(0,0,0,0.06);
+  --text: #1a1a1a;
+  --text2: #666;
+  --text3: #999;
+  --accent: #1a1a2e;
+  --accent2: #2d2d4e;
+  --green: #2d6a4f;
+  --green-bg: #d8f3dc;
+  --amber: #92400e;
+  --amber-bg: #fef3c7;
+  --red: #991b1b;
+  --red-bg: #fee2e2;
+  --blue: #1e3a5f;
+  --blue-bg: #dbeafe;
+  --r: 10px;
+  --r2: 14px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow2: 0 4px 16px rgba(0,0,0,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* APP SHELL */
+.app-header {
+  background: var(--accent);
+  color: white;
+  padding: 16px 20px 14px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+}
+.app-header h1 { font-size: 16px; font-weight: 600; line-height: 1.2; }
+.app-header p { font-size: 11px; opacity: 0.6; margin-top: 1px; }
+.header-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.12); border-radius: 8px; display:flex;align-items:center;justify-content:center; font-size: 18px; flex-shrink: 0; }
+
+/* TABS */
+.tabs { display: flex; background: var(--accent); padding: 0 4px 0; }
+.tab { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 10px 4px; border: none; background: transparent; color: rgba(255,255,255,0.5); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.tab.active { color: white; border-bottom-color: #7eb8f7; }
+
+/* CONTENT */
+.content { padding: 16px; max-width: 480px; margin: 0 auto; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* CARDS */
+.card { background: var(--surface); border-radius: var(--r2); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.card-title { font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+.card-bg { background: var(--surface2); box-shadow: none; }
+
+/* FORM */
+.field { margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 4px; font-weight: 500; }
+.field input, .field select {
+  width: 100%; padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r); font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface); color: var(--text);
+  outline: none; appearance: none; -webkit-appearance: none;
+  transition: border-color 0.15s;
+}
+.field input:focus, .field select:focus { border-color: var(--accent2); }
+.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.field .hint { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* NORM BOX */
+.norm-box { background: var(--accent); color: white; border-radius: var(--r2); padding: 14px 16px; margin-bottom: 12px; font-size: 12px; line-height: 1.7; opacity: 0.95; }
+.norm-box strong { font-weight: 600; }
+
+/* HORARIOS */
+.btn-add { width: 100%; padding: 12px; border: 1.5px dashed var(--border2); border-radius: var(--r); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--accent2); cursor: pointer; margin-top: 4px; transition: all 0.15s; }
+.btn-add:active { background: var(--surface2); }
+
+.franja { background: var(--surface2); border-radius: var(--r2); padding: 14px; margin-bottom: 10px; border: 1.5px solid transparent; }
+.franja.warn { border-color: #f59e0b; }
+.franja.err { border-color: #ef4444; }
+.franja-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.franja-dia { font-size: 13px; font-weight: 600; }
+.franja-total { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--accent); }
+.btn-rm { background: none; border: none; font-size: 20px; color: var(--text3); cursor: pointer; padding: 0 2px; line-height: 1; }
+.franja-inputs { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.franja-input-grp label { display: block; font-size: 11px; color: var(--text2); margin-bottom: 3px; font-weight: 500; }
+.franja-input-grp input {
+  width: 100%; padding: 8px 10px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 13px; font-family: 'DM Sans', sans-serif;
+  background: var(--surface); color: var(--text); outline: none;
+}
+.franja-input-grp input:focus { border-color: var(--accent2); }
+.franja-stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.stat-pill { font-size: 11px; padding: 3px 8px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text2); }
+.stat-pill.warn { background: var(--amber-bg); color: var(--amber); border-color: #f59e0b; }
+.stat-pill.err { background: var(--red-bg); color: var(--red); border-color: #ef4444; }
+
+/* SEGMENTS */
+.seg { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border2); font-size: 12px; gap: 6px; }
+.seg:last-child { border-bottom: none; }
+.seg-time { color: var(--text2); white-space: nowrap; flex-shrink: 0; }
+.seg-h { white-space: nowrap; flex-shrink: 0; }
+.seg-val { font-family: 'DM Mono', monospace; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+
+/* BADGES */
+.badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+.bN  { background: var(--surface2); color: var(--text2); }
+.b35 { background: var(--green-bg); color: var(--green); }
+.b25 { background: var(--blue-bg); color: var(--blue); }
+.b75 { background: var(--amber-bg); color: var(--amber); }
+.b80 { background: #fff7ed; color: #9a3412; }
+.b100{ background: var(--red-bg); color: var(--red); }
+.b110{ background: #fdf4ff; color: #7e22ce; }
+.b155{ background: #fdf2f8; color: #9d174d; }
+
+/* SEMANAS */
+.week-card { background: var(--surface); border-radius: var(--r); padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow); }
+.week-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.week-nums { font-size: 11px; }
+.prog-wrap { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; position: relative; margin-bottom: 8px; }
+.prog-ord { height: 100%; background: #2d6a4f; border-radius: 3px; position: absolute; left: 0; top: 0; }
+.prog-ext { height: 100%; border-radius: 3px; position: absolute; top: 0; }
+.day-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.dchip { font-size: 10px; padding: 3px 7px; border-radius: 20px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border2); }
+.dchip.ok  { background: var(--green-bg); color: var(--green); border-color: #86efac; }
+.dchip.w   { background: var(--amber-bg); color: var(--amber); border-color: #fcd34d; }
+.dchip.e   { background: var(--red-bg); color: var(--red); border-color: #fca5a5; }
+.dchip.f   { background: var(--red-bg); color: var(--red); border-color: #fca5a5; }
+
+/* ALERTS */
+.alert { border-radius: var(--r); padding: 10px 14px; font-size: 12px; line-height: 1.5; margin-bottom: 8px; display: flex; gap: 8px; }
+.alert-w { background: var(--amber-bg); color: var(--amber); border: 1px solid #fcd34d; }
+.alert-e { background: var(--red-bg); color: var(--red); border: 1px solid #fca5a5; }
+
+/* RESULT */
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.metric { background: var(--surface2); border-radius: var(--r); padding: 12px; }
+.metric-lbl { font-size: 11px; color: var(--text2); margin-bottom: 4px; font-weight: 500; }
+.metric-val { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border2); font-size: 13px; }
+.result-row:last-child { border-bottom: none; }
+.result-lbl { color: var(--text2); }
+.result-val { font-family: 'DM Mono', monospace; font-weight: 500; }
+.result-section { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); padding: 10px 0 4px; }
+.total-card { background: var(--accent); color: white; border-radius: var(--r2); padding: 18px; margin-top: 14px; }
+.total-lbl { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+.total-val { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; }
+.total-sub { font-size: 11px; opacity: 0.5; margin-top: 6px; }
+.info-row { background: var(--surface2); border-radius: var(--r); padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.info-item { font-size: 11px; color: var(--text2); }
+.info-item strong { color: var(--text); font-weight: 600; }
+
+/* RECARGOS TABLE */
+.rec-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border2); font-size: 12px; }
+.rec-row:last-child { border-bottom: none; }
+.rec-lbl { color: var(--text2); flex: 1; padding-right: 8px; }
+
+/* BOTTOM PADDING for mobile */
+.content { padding-bottom: 32px; }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="header-icon">🧾</div>
+  <div>
+    <h1>Liquidador Doméstica</h1>
+    <p>Colombia 2026 · Ley 2466 de 2025</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="setTab(0)">Configuración</button>
+  <button class="tab" onclick="setTab(1)">Horarios</button>
+  <button class="tab" onclick="setTab(2)">Liquidación</button>
+</div>
+
+<div class="content">
+
+  <!-- TAB 0: CONFIG -->
+  <div class="tab-pane active" id="pane-0">
+    <div class="card">
+      <div class="card-title">Tipo de empleo</div>
+      <div class="field">
+        <label>Modalidad</label>
+        <select id="modalidad" onchange="onMod()">
+          <option value="completo">Jornada completa (mensual)</option>
+          <option value="dias">Por días</option>
+        </select>
+      </div>
+      <div class="field" id="dias-wrap" style="display:none">
+        <label>Días trabajados en el mes</label>
+        <input type="number" id="diasTrab" value="15" min="1" max="30" inputmode="numeric" oninput="renderAll()">
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>SMLMV 2026</label>
+          <input value="$1.750.905" disabled>
+          <div class="hint">Decreto 1469 del 29-dic-2025</div>
+        </div>
+        <div class="field">
+          <label>Salario pactado</label>
+          <input type="number" id="salario" value="1750905" inputmode="numeric" oninput="renderAll()">
+          <div class="hint">Mínimo: $1.750.905</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Beneficios y prestaciones</div>
+      <div class="field">
+        <label>Auxilio de transporte ($249.095)</label>
+        <select id="auxT" onchange="calc()">
+          <option value="1">Sí aplica</option>
+          <option value="0">No (vive en lugar de trabajo)</option>
+        </select>
+        <div class="hint">Aplica si salario ≤ 2 SMLMV ($3.501.810)</div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>Vacaciones</label>
+          <select id="vacOn" onchange="calc()">
+            <option value="1">Sí (proporcional)</option>
+            <option value="0">No (ya tomadas)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cesantías (8.33%)</label>
+          <select id="cesOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+        </div>
+        <div class="field">
+          <label>Int. cesantías (1%)</label>
+          <select id="intCesOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+        </div>
+        <div class="field">
+          <label>Prima (8.33%)</label>
+          <select id="primaOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+        </div>
+        <div class="field">
+          <label>Salud empleador (8.5%)</label>
+          <select id="saludOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+        </div>
+        <div class="field">
+          <label>Pensión empleador (12%)</label>
+          <select id="pensionOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>ARL — Riesgo I (0.522%)</label>
+        <select id="arlOn" onchange="calc()"><option value="1">Sí</option><option value="0">No</option></select>
+      </div>
+    </div>
+
+    <div class="norm-box">
+      <strong>Normativa 2026:</strong> Jornada diurna 6am–7pm · Nocturna 7pm–6am (Ley 2466 Art.11) · Máx. 8h/día · 44h/sem hasta 14-jul · 42h/sem desde 15-jul (Ley 2101) · <strong>Máx. extras: 2h/día y 12h/sem</strong> (Art.13 Ley 2466) · Recargo dominical 80% hasta jun, 90% desde jul · 18 festivos integrados.
+    </div>
+  </div>
+
+  <!-- TAB 1: HORARIOS -->
+  <div class="tab-pane" id="pane-1">
+    <div id="zona-alertas"></div>
+    <div id="zona-semanas"></div>
+    <div class="card">
+      <div class="card-title">Períodos trabajados</div>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5">Ingresa fecha, inicio y fin. El sistema detecta automáticamente festivos, recargos nocturnos (desde 7pm), horas extra y sus límites legales.</p>
+      <div id="franjas-list"></div>
+      <button class="btn-add" onclick="addFranja()">+ Agregar período trabajado</button>
+    </div>
+    <div class="card card-bg">
+      <div class="card-title">Recargos vigentes — Ley 2466 de 2025</div>
+      <div class="rec-row"><span class="rec-lbl">Ordinaria diurna (6am–7pm, dentro de jornada)</span><span class="badge bN">base</span></div>
+      <div class="rec-row"><span class="rec-lbl">Recargo nocturno (7pm–6am, dentro de jornada)</span><span class="badge b35">+35%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Hora extra diurna (más de 8h/día, 6am–7pm)</span><span class="badge b25">+25%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Hora extra nocturna (más de 8h/día, 7pm–6am)</span><span class="badge b75">+75%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Dom/festivo diurno (hasta jun 2026)</span><span class="badge b80">+80%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Dom/festivo nocturno (hasta jun 2026)</span><span class="badge b110">+110%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Extra dom/festivo diurno (hasta jun 2026)</span><span class="badge b100">+105%</span></div>
+      <div class="rec-row"><span class="rec-lbl">Extra dom/festivo nocturno (hasta jun 2026)</span><span class="badge b155">+155%</span></div>
+      <div style="padding-top:8px;font-size:11px;color:var(--text3);line-height:1.5">Tope legal: máx. <strong style="color:var(--text2)">2h extra/día</strong> y <strong style="color:var(--text2)">12h extra/semana</strong> — Art.13 Ley 2466. Exceder puede generar sanción del Ministerio de Trabajo.</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: RESULTADO -->
+  <div class="tab-pane" id="pane-2">
+    <div class="card" id="result-content">
+      <p style="font-size:13px;color:var(--text2);text-align:center;padding:20px 0">Configura el salario y agrega horarios para ver la liquidación.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SMLMV=1750905,AUX=249095,D_MES=30,H_ORD=8,MAX_ED=2,MAX_ES=12;
+const FEST=new Set(['2026-01-01','2026-01-12','2026-03-23','2026-04-02','2026-04-03','2026-05-01','2026-05-18','2026-06-08','2026-06-15','2026-06-29','2026-07-20','2026-08-07','2026-08-17','2026-10-12','2026-11-02','2026-11-16','2026-12-08','2026-12-25']);
+let F=[];
+
+function esFest(iso){const d=new Date(iso+'T12:00:00');return d.getDay()===0||FEST.has(iso);}
+function esDiur(h){return h>=6&&h<19;}
+function pctDF(iso){return iso>='2026-07-01'?90:80;}
+function maxSem(iso){return iso>='2026-07-15'?42:44;}
+function getMon(iso){if(!iso)return'';const d=new Date(iso+'T12:00:00'),day=d.getDay()||7,m=new Date(d);m.setDate(d.getDate()-day+1);return m.toISOString().slice(0,10);}
+function fmt(n){return'$'+Math.round(n).toLocaleString('es-CO');}
+function fh(h){return h.toFixed(2)+'h';}
+function getSal(){return Math.max(+(document.getElementById('salario').value||0),SMLMV);}
+
+function setTab(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.tab-pane').forEach((p,j)=>p.classList.toggle('active',i===j));
+  if(i===2)calc();
+  if(i===1)renderAll();
+}
+function onMod(){
+  document.getElementById('dias-wrap').style.display=document.getElementById('modalidad').value==='dias'?'block':'none';
+  renderAll();
+}
+function addFranja(){
+  F.push({fecha:new Date().toISOString().slice(0,10),ini:'08:00',fin:'17:00'});
+  renderAll();
+}
+function delF(i){F.splice(i,1);renderAll();}
+
+function segsDeF(f,hOAc,hEDAc){
+  if(!f.fecha||!f.ini||!f.fin)return{segs:[],hTot:0,hExt:0};
+  const ini=new Date(f.fecha+'T'+f.ini+':00');
+  let fin=new Date(f.fecha+'T'+f.fin+':00');
+  if(fin<=ini)fin=new Date(fin.getTime()+86400000);
+  if(isNaN(ini)||isNaN(fin)||fin<=ini)return{segs:[],hTot:0,hExt:0};
+  const hO=getSal()/(D_MES*H_ORD);
+  const fest=esFest(f.fecha),pd=pctDF(f.fecha);
+  let ord=hOAc,ext=hEDAc;
+  const segs=[];let cur=new Date(ini);
+  while(cur<fin){
+    const sig=new Date(cur.getTime()+60000);
+    const diur=esDiur(cur.getHours()+cur.getMinutes()/60);
+    const isExt=ord>=H_ORD;
+    const key=(fest?'F':'N')+'_'+(diur?'D':'N')+'_'+(isExt?'E':'O');
+    if(isExt)ext+=1/60;else ord+=1/60;
+    const ul=segs[segs.length-1];
+    if(ul&&ul.key===key){ul.finD=sig;ul.m++;}
+    else segs.push({key,iniD:new Date(cur),finD:sig,m:1});
+    cur=sig;
+  }
+  const hTot=(fin-ini)/3600000,hExt=ext-hEDAc;
+  return{segs:segs.map(s=>{
+    const h=s.m/60,{pct,lbl,bc}=getRec(s.key,pd);
+    const vH=hO*(1+pct/100);
+    return{h,pct,lbl,bc,val:vH*h,
+      ini:s.iniD.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',hour12:false}),
+      fin:s.finD.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',hour12:false})};
+  }),hTot,hExt};
+}
+
+function getRec(k,pd){
+  const[Fk,D,E]=k.split('_');
+  const f=Fk==='F',d=D==='D',e=E==='E';
+  if(!f&&d&&!e)return{pct:0,   lbl:'Ordinaria diurna',bc:'bN'};
+  if(!f&&!d&&!e)return{pct:35, lbl:'Recargo nocturno',bc:'b35'};
+  if(!f&&d&&e)  return{pct:25, lbl:'Extra diurna',bc:'b25'};
+  if(!f&&!d&&e) return{pct:75, lbl:'Extra nocturna',bc:'b75'};
+  if(f&&d&&!e)  return{pct:pd, lbl:'Dom/fest diurno',bc:'b80'};
+  if(f&&!d&&!e) return{pct:pd+30,lbl:'Dom/fest nocturno',bc:'b110'};
+  if(f&&d&&e)   return{pct:pd+25,lbl:'Extra dom/fest diur',bc:'b100'};
+                return{pct:pd+75,lbl:'Extra dom/fest noct',bc:'b155'};
+}
+
+function getResumen(){
+  const hOD={},hED={},hES={};
+  const ordAc={},extDAc={},extSAc={};
+  F.forEach(f=>{
+    if(!f.fecha||!f.ini||!f.fin)return;
+    const lun=getMon(f.fecha);
+    const{hTot,hExt}=segsDeF(f,ordAc[f.fecha]||0,extDAc[f.fecha]||0);
+    const hOrd=Math.max(0,hTot-hExt);
+    ordAc[f.fecha]=(ordAc[f.fecha]||0)+hOrd;
+    extDAc[f.fecha]=(extDAc[f.fecha]||0)+hExt;
+    extSAc[lun]=(extSAc[lun]||0)+hExt;
+    hOD[f.fecha]=(hOD[f.fecha]||0)+hOrd;
+    hED[f.fecha]=(hED[f.fecha]||0)+hExt;
+    hES[lun]=(hES[lun]||0)+hExt;
+  });
+  return{hOD,hED,hES};
+}
+
+function renderAll(){renderAlertas();renderSemanas();renderFranjas();calc();}
+
+function renderAlertas(){
+  const{hED,hES}=getResumen();
+  let html='';
+  Object.entries(hED).forEach(([iso,hE])=>{
+    if(hE>MAX_ED+0.01){
+      const d=new Date(iso+'T12:00:00').toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+      html+=`<div class="alert alert-e">⚠ El ${d} hay <strong>${fh(hE)}</strong> extras — límite legal: <strong>${MAX_ED}h/día</strong> (Art.13 Ley 2466). Se liquidan con recargo pero el empleador puede ser sancionado.</div>`;
+    }
+  });
+  Object.entries(hES).forEach(([lun,hE])=>{
+    if(hE>MAX_ES+0.01){
+      const i=new Date(lun+'T12:00:00').toLocaleDateString('es-CO',{day:'numeric',month:'short'});
+      const fd=new Date(lun+'T12:00:00');fd.setDate(fd.getDate()+6);
+      const fi=fd.toLocaleDateString('es-CO',{day:'numeric',month:'short'});
+      html+=`<div class="alert alert-e">⚠ Semana ${i}–${fi}: <strong>${fh(hE)}</strong> extras — límite legal: <strong>${MAX_ES}h/semana</strong>. Se liquidan todas pero excede el máximo permitido.</div>`;
+    }
+  });
+  document.getElementById('zona-alertas').innerHTML=html;
+}
+
+function renderSemanas(){
+  const{hOD,hED,hES}=getResumen();
+  const zona=document.getElementById('zona-semanas');
+  if(!F.length){zona.innerHTML='';return;}
+  const semsSet=new Set([...Object.keys(hOD),...Object.keys(hED)].map(iso=>getMon(iso)));
+  const sems=[...semsSet].sort();
+  zona.innerHTML=sems.map(lun=>{
+    const hE=hES[lun]||0;
+    let hO=0;
+    for(let i=0;i<7;i++){const d=new Date(lun+'T12:00:00');d.setDate(d.getDate()+i);hO+=(hOD[d.toISOString().slice(0,10)]||0);}
+    const ms=maxSem(lun);
+    const pO=Math.min(hO/ms*100,100);
+    const pE=Math.min(hE/ms*100,Math.max(0,100-pO));
+    const eOver=hE>MAX_ES+0.01;
+    const fi=new Date(lun+'T12:00:00').toLocaleDateString('es-CO',{day:'numeric',month:'short'});
+    const ffd=new Date(lun+'T12:00:00');ffd.setDate(ffd.getDate()+6);
+    const ff=ffd.toLocaleDateString('es-CO',{day:'numeric',month:'short'});
+    const dias=['L','M','X','J','V','S','D'];
+    const chips=[];
+    for(let i=0;i<7;i++){
+      const d=new Date(lun+'T12:00:00');d.setDate(d.getDate()+i);
+      const iso=d.toISOString().slice(0,10);
+      const hOd=hOD[iso]||0,hEd=hED[iso]||0,tot=hOd+hEd;
+      const fest=esFest(iso);
+      if(tot===0){chips.push(`<span class="dchip">${dias[i]}</span>`);continue;}
+      const over=hEd>MAX_ED+0.01;
+      let cls=fest?'f':over?'e':hEd>0?'w':'ok';
+      chips.push(`<span class="dchip ${cls}">${dias[i]} ${tot.toFixed(1)}${hEd>0?'+':''}</span>`);
+    }
+    return`<div class="week-card">
+      <div class="week-header">
+        <span>${fi} – ${ff}</span>
+        <span class="week-nums" style="color:${eOver?'#dc2626':hE>0?'#b45309':'#166534'}">${hO.toFixed(1)}h ord${hE>0?` + ${hE.toFixed(1)}h ext`:''} / ${ms}h+${MAX_ES}h</span>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-ord" style="width:${pO}%"></div>
+        <div class="prog-ext" style="width:${pE}%;left:${pO}%;background:${eOver?'#ef4444':'#f59e0b'}"></div>
+      </div>
+      <div class="day-chips">${chips.join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderFranjas(){
+  const el=document.getElementById('franjas-list');
+  if(!F.length){el.innerHTML='<p style="font-size:12px;color:var(--text3);padding:8px 0 4px">No hay períodos registrados.</p>';return;}
+  const{hOD,hED,hES}=getResumen();
+  const ordAc={},extDAc={},extSAc={};
+  el.innerHTML=F.map((f,i)=>{
+    const lun=getMon(f.fecha||new Date().toISOString().slice(0,10));
+    const{segs,hTot,hExt}=segsDeF(f,ordAc[f.fecha]||0,extDAc[f.fecha]||0);
+    const hOrd=Math.max(0,hTot-hExt);
+    ordAc[f.fecha]=(ordAc[f.fecha]||0)+hOrd;
+    extDAc[f.fecha]=(extDAc[f.fecha]||0)+hExt;
+    extSAc[lun]=(extSAc[lun]||0)+hExt;
+    const hEDia=hED[f.fecha]||0,hESem=hES[lun]||0;
+    const eDO=hEDia>MAX_ED+0.01,eSO=hESem>MAX_ES+0.01;
+    const fest=esFest(f.fecha);
+    const dOb=f.fecha?new Date(f.fecha+'T12:00:00'):null;
+    const dia=dOb?dOb.toLocaleDateString('es-CO',{weekday:'short',day:'numeric',month:'short'}):'';
+    const ftag=fest?` <span class="badge b100">${dOb&&dOb.getDay()===0?'Dom':'Festivo'}</span>`:'';
+    const totV=segs.reduce((a,s)=>a+s.val,0);
+    const cls=eDO||eSO?'err':'';
+    const sHtml=segs.length?segs.map(s=>`
+      <div class="seg">
+        <span class="seg-time">${s.ini}–${s.fin}</span>
+        <span class="seg-h">${s.h.toFixed(2)}h</span>
+        <span class="badge ${s.bc}">${s.lbl}</span>
+        <span class="seg-val">${fmt(s.val)}</span>
+      </div>`).join(''):'<p style="font-size:11px;color:var(--text3)">Horario inválido</p>';
+    return`<div class="franja ${cls}">
+      <div class="franja-header">
+        <div><span class="franja-dia" style="text-transform:capitalize">${dia}</span>${ftag}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${segs.length?`<span class="franja-total">${fmt(totV)}</span>`:''}
+          <button class="btn-rm" onclick="delF(${i})">×</button>
+        </div>
+      </div>
+      <div class="franja-inputs">
+        <div class="franja-input-grp"><label>Fecha</label><input type="date" value="${f.fecha}" oninput="F[${i}].fecha=this.value;renderAll()"></div>
+        <div class="franja-input-grp"><label>Inicio</label><input type="time" value="${f.ini}" oninput="F[${i}].ini=this.value;renderAll()"></div>
+        <div class="franja-input-grp"><label>Fin</label><input type="time" value="${f.fin}" oninput="F[${i}].fin=this.value;renderAll()"></div>
+      </div>
+      <div class="franja-stats">
+        <span class="stat-pill">Este período: ${fh(hTot)}</span>
+        <span class="stat-pill ${eDO?'err':hEDia>0?'warn':''}">Extras hoy: ${fh(hEDia)}/${MAX_ED}h</span>
+        <span class="stat-pill ${eSO?'err':hESem>0?'warn':''}">Extras sem: ${fh(hESem)}/${MAX_ES}h</span>
+      </div>
+      ${sHtml}
+    </div>`;
+  }).join('');
+}
+
+function calc(){
+  const mod=document.getElementById('modalidad').value;
+  const dT=+(document.getElementById('diasTrab').value||30);
+  const s=getSal();
+  const factor=mod==='dias'?dT/D_MES:1;
+  const sM=s*factor;
+  const aOn=+document.getElementById('auxT').value;
+  const auxV=aOn&&s<=2*SMLMV?AUX*factor:0;
+  const ordAc={},extDAc={},extSAc={};
+  let totExt=0;const dets=[];
+  F.forEach(f=>{
+    const lun=getMon(f.fecha||'');
+    const{segs,hTot,hExt}=segsDeF(f,ordAc[f.fecha]||0,extDAc[f.fecha]||0);
+    const hOrd=Math.max(0,hTot-hExt);
+    ordAc[f.fecha]=(ordAc[f.fecha]||0)+hOrd;
+    extDAc[f.fecha]=(extDAc[f.fecha]||0)+hExt;
+    extSAc[lun]=(extSAc[lun]||0)+hExt;
+    segs.forEach(sg=>totExt+=sg.val);
+    if(segs.length)dets.push({f,segs,hTot});
+  });
+  const bIbc=sM+totExt,bP=sM+auxV+totExt;
+  const ces=+document.getElementById('cesOn').value?bP/12:0;
+  const iCes=+document.getElementById('intCesOn').value?ces*0.12/12:0;
+  const pri=+document.getElementById('primaOn').value?bP/12:0;
+  const vac=+document.getElementById('vacOn').value?sM/24:0;
+  const sal2=+document.getElementById('saludOn').value?bIbc*0.085:0;
+  const pen=+document.getElementById('pensionOn').value?bIbc*0.12:0;
+  const arl=+document.getElementById('arlOn').value?bIbc*0.00522:0;
+  const total=sM+auxV+totExt+ces+iCes+pri+vac+sal2+pen+arl;
+  const hO=s/(D_MES*H_ORD);
+  const{hOD,hED}=getResumen();
+  const tH=Object.values(hOD).reduce((a,v)=>a+v,0)+Object.values(hED).reduce((a,v)=>a+v,0);
+  const tHE=Object.values(hED).reduce((a,v)=>a+v,0);
+
+  const detH=dets.length?dets.map(({f,segs,hTot})=>{
+    const d=new Date(f.fecha+'T12:00:00').toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+    const tv=segs.reduce((a,s)=>a+s.val,0);
+    return`<div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;font-weight:600;text-transform:capitalize">${d}${esFest(f.fecha)?' 🔴':''}</span>
+        <span style="font-size:12px;font-family:'DM Mono',monospace;font-weight:500">${fh(hTot)} · ${fmt(tv)}</span>
+      </div>
+      ${segs.map(s=>`<div class="result-row"><span class="result-lbl">${s.ini}–${s.fin} · ${s.h.toFixed(2)}h <span class="badge ${s.bc}">${s.lbl}</span></span><span class="result-val">${fmt(s.val)}</span></div>`).join('')}
+    </div>`;
+  }).join(''):'';
+
+  document.getElementById('result-content').innerHTML=`
+    <div class="card-title">Liquidación — ${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-lbl">Salario base</div><div class="metric-val">${fmt(sM)}</div></div>
+      <div class="metric"><div class="metric-lbl">Extras/recargos</div><div class="metric-val">${fmt(totExt)}</div></div>
+      <div class="metric"><div class="metric-lbl">Prestaciones</div><div class="metric-val">${fmt(ces+iCes+pri+vac)}</div></div>
+      <div class="metric"><div class="metric-lbl">Seg. social</div><div class="metric-val">${fmt(sal2+pen+arl)}</div></div>
+    </div>
+    <div class="info-row">
+      <span class="info-item">Horas totales: <strong>${fh(tH)}</strong></span>
+      <span class="info-item">Horas extra: <strong style="color:${tHE>0?'#b45309':'inherit'}">${fh(tHE)}</strong></span>
+      <span class="info-item">Hora ordinaria: <strong>${fmt(hO)}</strong></span>
+    </div>
+    <div class="result-section">Devengado</div>
+    <div class="result-row"><span class="result-lbl">Salario ${mod==='dias'?`proporcional (${dT}/30 días)`:'mensual'}</span><span class="result-val">${fmt(sM)}</span></div>
+    ${auxV?`<div class="result-row"><span class="result-lbl">Auxilio de transporte 2026</span><span class="result-val">${fmt(auxV)}</span></div>`:''}
+    ${totExt?`<div class="result-row"><span class="result-lbl">Horas extra y recargos</span><span class="result-val">${fmt(totExt)}</span></div>`:''}
+    <div class="result-section">Prestaciones sociales</div>
+    ${ces?`<div class="result-row"><span class="result-lbl">Cesantías (8.33%)</span><span class="result-val">${fmt(ces)}</span></div>`:''}
+    ${iCes?`<div class="result-row"><span class="result-lbl">Intereses cesantías (1%/mes)</span><span class="result-val">${fmt(iCes)}</span></div>`:''}
+    ${pri?`<div class="result-row"><span class="result-lbl">Prima de servicios (8.33%)</span><span class="result-val">${fmt(pri)}</span></div>`:''}
+    ${vac?`<div class="result-row"><span class="result-lbl">Vacaciones (4.17%)</span><span class="result-val">${fmt(vac)}</span></div>`:''}
+    <div class="result-section">Seguridad social (empleador)</div>
+    ${sal2?`<div class="result-row"><span class="result-lbl">Salud (8.5%)</span><span class="result-val">${fmt(sal2)}</span></div>`:''}
+    ${pen?`<div class="result-row"><span class="result-lbl">Pensión (12%)</span><span class="result-val">${fmt(pen)}</span></div>`:''}
+    ${arl?`<div class="result-row"><span class="result-lbl">ARL riesgo I (0.522%)</span><span class="result-val">${fmt(arl)}</span></div>`:''}
+    <div class="total-card">
+      <div class="total-lbl">Total costo para el empleador</div>
+      <div class="total-val">${fmt(total)}</div>
+      <div class="total-sub">SMLMV 2026: ${fmt(SMLMV)} · Aux. transporte: ${fmt(AUX)} · Ley 2466/2025 · Ley 2101/2021</div>
+    </div>
+    ${detH?`<div style="margin-top:16px"><div class="result-section">Detalle horas trabajadas</div>${detH}</div>`:''}
+  `;
+}
+
+renderFranjas();calc();
+</script>
+</body>
+</html>
